@@ -331,40 +331,45 @@ class VRCFTCreateShapeKeys(Operator):
         if separator_name not in mesh.data.shape_keys.key_blocks:
             mesh.shape_key_add(name=separator_name)
 
-        OG = {}
         existing_keys = [key.name for key in mesh.data.shape_keys.key_blocks]
+
+        for key in mesh.data.shape_keys.key_blocks:
+            key.value = 0
 
         for i, label in enumerate(active_list):
             source_key = getattr(context.scene, f"vrcft_shapekeys_{i}")
             vertex_group = getattr(context.scene, f"vrcft_vertex_groups_{i}")
 
-            if source_key != "Basis":
-                OG[source_key] = mesh.data.shape_keys.key_blocks[source_key].value
-
             if label in existing_keys and source_key == "Basis":
                 continue
 
             if label not in existing_keys:
-                mesh.shape_key_add(name=label, from_mix=source_key != "Basis")
-
-            if source_key != "Basis":
-                mesh.data.shape_keys.key_blocks[source_key].value = 1
-
-            mesh.active_shape_key_index = mesh.data.shape_keys.key_blocks.find(label)
+                target_key = mesh.shape_key_add(name=label)
+            else:
+                target_key = mesh.data.shape_keys.key_blocks[label]
 
             if vertex_group != 'NONE':
-                mesh.data.shape_keys.key_blocks[label].vertex_group = vertex_group
+                target_key.vertex_group = vertex_group
 
-            bpy.ops.object.mode_set(mode='EDIT')
-            bpy.ops.mesh.select_all(action='SELECT')
-            bpy.ops.mesh.blend_from_shape(shape=source_key, blend=1.0)
-            bpy.ops.object.mode_set(mode='OBJECT')
+            if source_key != "Basis":
+                for vert_idx in range(len(target_key.data)):
+                    target_key.data[vert_idx].co = mesh.data.shape_keys.key_blocks['Basis'].data[vert_idx].co
 
-        for key, value in OG.items():
-            mesh.data.shape_keys.key_blocks[key].value = value
+                source_shape = mesh.data.shape_keys.key_blocks[source_key]
+                source_shape.value = 1.0
+
+                bpy.context.view_layer.objects.active = mesh
+                mesh.active_shape_key_index = mesh.data.shape_keys.key_blocks.find(label)
+                bpy.ops.object.mode_set(mode='EDIT')
+                bpy.ops.mesh.select_all(action='SELECT')
+                bpy.ops.mesh.blend_from_shape(shape=source_key, blend=1.0)
+                bpy.ops.object.mode_set(mode='OBJECT')
+
+                source_shape.value = 0.0
 
         mesh.active_shape_key_index = 0
         return {'FINISHED'}
+
 
 class VRCFTRemoveShapeKeys(Operator):
     bl_label = "Remove VRCFT Shape Keys"
