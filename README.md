@@ -8,7 +8,7 @@ planned future update:
 - custom user lists that're saved across sessions to allow creators to make, edit & share their own lists (basically custom import & export lists) (25%)
 - a button to automatically create 4 or at least 2 Vertex groups to split the left and right side of face to make it easier to take the unsplit keys and split them (0%)
 - a button to automatically take left and right vertex groups and split unsplit keys (100%)
-- (a beta feature) a button for complete automatic FT setup making the entire process become very easy for newer creators! (unsure how well this'd work! so it will just be tested for abit) (0%)
+- (a beta feature) a button for complete automatic FT setup making the entire process become very easy for newer creators! (unsure how well this'd work! so it will just be tested for abit) (25%)
 - settings tab for things such as: removeal of buttons that you dont want to see since you wont use them (for the people who wanna keep things minimal) (0%)
 
 this will try to stay up to date with: https://docs.vrcft.io/docs/tutorial-avatars/tutorial-avatars-extras/unified-blendshapes
