@@ -13,7 +13,7 @@ this is a forked version that is abit more extended/ reworked abit for funsies :
 
 # quick fyi
 
-im currently busy with a bunch o' stuff! im aware that some may want some of these future planned updates sooner but ***please*** dont come into my dms to spam, harrass, threaten, etc
+im currently busy with a bunch o' stuff! im aware that some may want some of these future planned updates sooner but ***please*** dont come into my dms to spam, harass, threaten, etc
 that behaviour will just make me not want to work on this any further and even detach from the VRCFT community entirely, its not fun to have alot of interactions from it being like that.
 
 hope you understand & hope you enjoy this silly lil fork :)
